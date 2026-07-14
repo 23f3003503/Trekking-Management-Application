@@ -10,6 +10,20 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+    admin = User.query.filter_by(username="admin").first()
+
+    if admin is None:
+
+        admin = User(
+            name="Administrator",
+            username="admin",
+            password="admin123",
+            role="admin"
+        )
+
+        db.session.add(admin)
+        db.session.commit()
+
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -51,8 +65,21 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        print("Username:", username)
-        print("Password:", password)
+        user=User.query.filter_by(username=username).first()
+        if user is None:
+            return "Username not found. Please register first."
+
+        if user.password != password:
+            return "Incorrect password."
+
+        if user.role == "admin":
+            return render_template("admin.html")
+
+        elif user.role == "staff":
+            return render_template("staff.html")
+
+        else:
+            return render_template("trekker.html")
 
     return render_template("login.html")
 
