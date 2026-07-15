@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Users</title>
+</head>
+
+<body>
+
+<h1>Users</h1>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search User"
+        value="{{ search }}"
+    >
+
+    <button type="submit">Search</button>
+
+</form>
+
+<br>
+
+<table border="1" cellpadding="8">
+
+<tr>
+
+    <th>ID</th>
+    <th>Name</th>
+    <th>Username</th>
+    <th>Status</th>
+    <th>Action</th>
+
+</tr>
+
+{% for user in users %}
+
+<tr>
+
+    <td>{{ user.id }}</td>
+
+    <td>{{ user.name }}</td>
+
+    <td>{{ user.username }}</td>
+
+    <td>
+
+        {% if user.is_active %}
+
+            Active
+
+        {% else %}
+
+            Inactive
+
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        <a href="/toggle_user/{{ user.id }}">
+
+            {% if user.is_active %}
+
+                <button>Deactivate</button>
+
+            {% else %}
+
+                <button>Activate</button>
+
+            {% endif %}
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/admin">
+    <button>Back to Dashboard</button>
+</a>
+
+</body>
+</html>

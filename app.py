@@ -73,6 +73,9 @@ def login():
         if user.password != password:
             return "Incorrect password."
 
+        if not user.is_active:
+            return "Your account has been deactivated."
+
         session["user_id"] = user.id
         session["role"] = user.role
         session["username"] = user.username
@@ -90,9 +93,25 @@ def login():
 
 @app.route("/admin")
 def admin():
+
     if "user_id" not in session or session["role"] != "admin":
         return redirect("/login")
-    return render_template("admin.html")
+
+    total_treks = Trek.query.count()
+
+    total_users = User.query.filter_by(role="trekker").count()
+
+    total_staff = User.query.filter_by(role="staff").count()
+
+    total_bookings = Booking.query.count()
+
+    return render_template(
+        "admin.html",
+        total_treks=total_treks,
+        total_users=total_users,
+        total_staff=total_staff,
+        total_bookings=total_bookings
+    )
 
 @app.route("/staff")
 def staff():
@@ -120,6 +139,9 @@ def trekker():
 @app.route("/add_trek", methods=["GET", "POST"])
 def add_trek():
 
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
     if request.method == "POST":
 
         trek_name = request.form["trek_name"]
@@ -141,7 +163,7 @@ def add_trek():
         db.session.add(new_trek)
         db.session.commit()
 
-        return "Trek Added Successfully!"
+        return redirect("/view_treks")
 
     return render_template("add_trek.html")
 
@@ -149,7 +171,17 @@ def add_trek():
 @app.route("/view_treks")
 def view_treks():
 
-    treks = Trek.query.all()
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
+    search = request.args.get("search")
+
+    if search:
+        treks = Trek.query.filter(
+            Trek.trek_name.ilike(f"%{search}%")
+        ).all()
+    else:
+        treks = Trek.query.all()
 
     return render_template(
         "view_treks.html",
@@ -171,6 +203,9 @@ def treks():
 
 @app.route("/book_trek/<int:id>")
 def book_trek(id):
+
+    if "user_id" not in session or session["role"] != "trekker":
+        return redirect("/login")
 
     trek = Trek.query.get_or_404(id)
 
@@ -233,6 +268,9 @@ def view_bookings():
 @app.route("/edit_trek/<int:id>", methods=["GET", "POST"])
 def edit_trek(id):
 
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
     trek = Trek.query.get_or_404(id)
     staff_members = User.query.filter_by(role="staff").all()
 
@@ -259,6 +297,9 @@ def edit_trek(id):
 @app.route("/delete_trek/<int:trek_id>")
 def delete_trek(trek_id):
 
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
     trek = Trek.query.get_or_404(trek_id)
 
     db.session.delete(trek)
@@ -269,6 +310,9 @@ def delete_trek(trek_id):
 
 @app.route("/add_staff", methods=["GET", "POST"])
 def add_staff():
+
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
 
     if request.method == "POST":
 
@@ -304,22 +348,81 @@ def add_staff():
         db.session.add(staff_profile)
         db.session.commit()
 
-        return "Staff Added Successfully!"
+        return redirect("/view_staff")
 
     return render_template("add_staff.html")
 
 @app.route("/view_staff")
 def view_staff():
 
-    staff_members = StaffProfile.query.all()
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
+    search = request.args.get("search", "")
+
+    staff_members = StaffProfile.query.join(User).filter(
+        User.name.ilike(f"%{search}%")
+    ).all()
 
     return render_template(
         "view_staff.html",
-        staff_members=staff_members
+        staff_members=staff_members,
+        search=search
     )
+
+@app.route("/toggle_staff/<int:id>")
+def toggle_staff(id):
+
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
+    staff = StaffProfile.query.get_or_404(id)
+
+    staff.user.is_active = not staff.user.is_active
+
+    db.session.commit()
+
+    return redirect("/view_staff")
+
+@app.route("/view_users")
+def view_users():
+
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
+    search = request.args.get("search", "")
+
+    users = User.query.filter(
+        User.role == "trekker",
+        User.name.ilike(f"%{search}%")
+    ).all()
+
+    return render_template(
+        "view_users.html",
+        users=users,
+        search=search
+    )
+
+@app.route("/toggle_user/<int:id>")
+def toggle_user(id):
+
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
+    user = User.query.get_or_404(id)
+
+    user.is_active = not user.is_active
+
+    db.session.commit()
+
+    return redirect("/view_users")
+
 
 @app.route("/edit_staff/<int:id>", methods=["GET", "POST"])
 def edit_staff(id):
+
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
 
     staff = StaffProfile.query.get_or_404(id)
 
@@ -345,6 +448,9 @@ def edit_staff(id):
 @app.route("/delete_staff/<int:id>")
 def delete_staff(id):
 
+    if "user_id" not in session or session["role"] != "admin":
+        return redirect("/login")
+
     staff = StaffProfile.query.get_or_404(id)
 
     user = User.query.get(staff.user_id)
@@ -356,6 +462,14 @@ def delete_staff(id):
     db.session.commit()
 
     return redirect("/view_staff")
+
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/login")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -9,6 +9,20 @@
 
     <h1>Admin Dashboard</h1>
 
+    <hr>
+
+    <h2>Dashboard Statistics</h2>
+
+    <p><b>Total Treks:</b> {{ total_treks }}</p>
+
+    <p><b>Total Trekkers:</b> {{ total_users }}</p>
+
+    <p><b>Total Staff:</b> {{ total_staff }}</p>
+
+    <p><b>Total Bookings:</b> {{ total_bookings }}</p>
+
+    <hr>
+
     <h3>Welcome Administrator</h3>
 
     <hr>
@@ -49,6 +63,12 @@
 
     <a href="/view_users">
         <button>View Users</button>
+    </a>
+
+    <br><br>
+
+    <a href="/logout">
+        <button>Logout</button>
     </a>
 
 </body>

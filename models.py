@@ -14,6 +14,8 @@ class User(db.Model):
 
     role = db.Column(db.String(20), nullable=False)
 
+    is_active = db.Column(db.Boolean, default=True)
+
     bookings = db.relationship("Booking", backref="user", lazy=True)
 
 class Trek(db.Model):
