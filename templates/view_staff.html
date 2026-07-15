@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Staff</title>
+</head>
+
+<body>
+
+<h1>Staff Members</h1>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Username</th>
+    <th>Phone</th>
+    <th>Experience</th>
+    <th>Specialization</th>
+    <th>Action</th>
+</tr>
+
+{% for staff in staff_members %}
+
+<tr>
+
+<td>{{ staff.id }}</td>
+
+<td>{{ staff.user.name }}</td>
+
+<td>{{ staff.user.username }}</td>
+
+<td>{{ staff.phone }}</td>
+
+<td>{{ staff.experience }}</td>
+
+<td>{{ staff.specialization }}</td>
+
+<td>
+
+<a href="/edit_staff/{{ staff.id }}">
+<button>Edit</button>
+</a>
+
+<a href="/delete_staff/{{ staff.id }}"
+onclick="return confirm('Delete this staff member?')">
+<button>Delete</button>
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/admin">
+<button>Back to Dashboard</button>
+</a>
+
+</body>
+
+</html>

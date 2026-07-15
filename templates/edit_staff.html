@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Staff</title>
+</head>
+
+<body>
+
+<h1>Edit Staff</h1>
+
+<form method="POST">
+
+<label>Name</label><br>
+<input type="text" name="name" value="{{ staff.user.name }}"><br><br>
+
+<label>Username</label><br>
+<input type="text" name="username" value="{{ staff.user.username }}"><br><br>
+
+<label>Password</label><br>
+<input type="text" name="password" value="{{ staff.user.password }}"><br><br>
+
+<label>Phone</label><br>
+<input type="text" name="phone" value="{{ staff.phone }}"><br><br>
+
+<label>Experience</label><br>
+<input type="number" name="experience" value="{{ staff.experience }}"><br><br>
+
+<label>Specialization</label><br>
+<input type="text" name="specialization" value="{{ staff.specialization }}"><br><br>
+
+<button type="submit">
+Update Staff
+</button>
+
+</form>
+
+<br>
+
+<a href="/view_staff">
+<button>Cancel</button>
+</a>
+
+</body>
+
+</html>

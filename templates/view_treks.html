@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Treks</title>
+</head>
+
+<body>
+
+    <h1>All Treks</h1>
+
+    <table border="1" cellpadding="8">
+
+        <tr>
+            <th>ID</th>
+            <th>Trek Name</th>
+            <th>Location</th>
+            <th>Difficulty</th>
+            <th>Duration</th>
+            <th>Available Slots</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for trek in treks %}
+
+        <tr>
+
+            <td>{{ trek.id }}</td>
+
+            <td>{{ trek.trek_name }}</td>
+
+            <td>{{ trek.location }}</td>
+
+            <td>{{ trek.difficulty }}</td>
+
+            <td>{{ trek.duration }}</td>
+
+            <td>{{ trek.available_slots }}</td>
+
+            <td>{{ trek.status }}</td>
+
+            <td>
+
+                <a href="/edit_trek/{{ trek.id }}">
+                    <button>Edit</button>
+                </a>
+
+                <a href="/delete_trek/{{ trek.id }}"
+                   onclick="return confirm('Are you sure you want to delete this trek?')">
+                    <button>Delete</button>
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="/admin">
+        <button>Back to Dashboard</button>
+    </a>
+
+</body>
+
+</html>

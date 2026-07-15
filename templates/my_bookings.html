@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Bookings</title>
+</head>
+
+<body>
+
+<h1>My Bookings</h1>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>Booking ID</th>
+    <th>Trek Name</th>
+    <th>Location</th>
+    <th>Status</th>
+</tr>
+
+{% for booking in bookings %}
+
+<tr>
+
+<td>{{ booking.id }}</td>
+
+<td>{{ booking.trek.trek_name }}</td>
+
+<td>{{ booking.trek.location }}</td>
+
+<td>{{ booking.booking_status }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/trekker">
+    <button>Back to Dashboard</button>
+</a>
+
+</body>
+
+</html>

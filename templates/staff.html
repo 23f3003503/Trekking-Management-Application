@@ -1,13 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Staff Dashboard</title>
 </head>
+
 <body>
 
 <h1>Staff Dashboard</h1>
 
-<p>Welcome Staff.</p>
+<h2>Welcome {{ session["username"] }}</h2>
+
+<hr>
+
+<h2>Assigned Treks</h2>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>ID</th>
+    <th>Trek Name</th>
+    <th>Location</th>
+    <th>Difficulty</th>
+    <th>Duration</th>
+    <th>Available Slots</th>
+</tr>
+
+{% for trek in assigned_treks %}
+
+<tr>
+
+<td>{{ trek.id }}</td>
+
+<td>{{ trek.trek_name }}</td>
+
+<td>{{ trek.location }}</td>
+
+<td>{{ trek.difficulty }}</td>
+
+<td>{{ trek.duration }}</td>
+
+<td>{{ trek.available_slots }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
 
 </body>
+
 </html>
