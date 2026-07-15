@@ -24,29 +24,49 @@
     <th>Difficulty</th>
     <th>Duration</th>
     <th>Available Slots</th>
+    <th>Status</th>
+    <th>Participants</th>
+    <th>Action</th>
 </tr>
 
 {% for trek in assigned_treks %}
 
 <tr>
 
-<td>{{ trek.id }}</td>
+    <td>{{ trek.id }}</td>
 
-<td>{{ trek.trek_name }}</td>
+    <td>{{ trek.trek_name }}</td>
 
-<td>{{ trek.location }}</td>
+    <td>{{ trek.location }}</td>
 
-<td>{{ trek.difficulty }}</td>
+    <td>{{ trek.difficulty }}</td>
 
-<td>{{ trek.duration }}</td>
+    <td>{{ trek.duration }}</td>
 
-<td>{{ trek.available_slots }}</td>
+    <td>{{ trek.available_slots }}</td>
+
+    <td>{{ trek.status }}</td>
+
+    <td>{{ trek.bookings|length }}</td>
+
+    <td>
+
+        <a href="/staff_edit_trek/{{ trek.id }}">
+            <button>Edit</button>
+        </a>
+
+        <a href="/staff_participants/{{ trek.id }}">
+            <button>Participants</button>
+        </a>
+
+    </td>
 
 </tr>
 
 {% endfor %}
 
 </table>
+
 <br><br>
 
 <a href="/logout">

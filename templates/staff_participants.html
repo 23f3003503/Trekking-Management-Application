@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trek Participants</title>
+</head>
+
+<body>
+
+<h1>Participants - {{ trek.trek_name }}</h1>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>Booking ID</th>
+    <th>Trekker Name</th>
+    <th>Username</th>
+    <th>Booking Status</th>
+    <th>Payment Status</th>
+    <th>Action</th>
+</tr>
+
+{% for booking in bookings %}
+
+<tr>
+
+    <td>{{ booking.id }}</td>
+
+    <td>{{ booking.user.name }}</td>
+
+    <td>{{ booking.user.username }}</td>
+
+    <td>{{ booking.booking_status }}</td>
+
+    <td>{{ booking.payment_status }}</td>
+
+    <td>
+
+        {% if booking.booking_status != "Completed" %}
+
+        <a href="/update_booking_status/{{ booking.id }}/Completed">
+            <button>Complete</button>
+        </a>
+
+        {% endif %}
+
+        {% if booking.booking_status != "Cancelled" %}
+
+        <a href="/update_booking_status/{{ booking.id }}/Cancelled">
+            <button>Cancel</button>
+        </a>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<a href="/staff">
+    <button>Back</button>
+</a>
+
+</body>
+
+</html>

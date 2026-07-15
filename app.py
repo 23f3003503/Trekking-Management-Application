@@ -128,6 +128,71 @@ def staff():
         assigned_treks=assigned_treks
     )
 
+@app.route("/staff_edit_trek/<int:trek_id>", methods=["GET", "POST"])
+def staff_edit_trek(trek_id):
+
+    if "user_id" not in session or session["role"] != "staff":
+        return redirect("/login")
+
+    trek = Trek.query.get_or_404(trek_id)
+
+    if trek.assigned_staff != session["user_id"]:
+        return "Unauthorized Access"
+
+    if request.method == "POST":
+
+        trek.available_slots = request.form["available_slots"]
+        trek.status = request.form["status"]
+
+        db.session.commit()
+
+        return redirect("/staff")
+
+    return render_template(
+        "staff_edit_trek.html",
+        trek=trek
+    )
+
+@app.route("/staff_participants/<int:trek_id>")
+def staff_participants(trek_id):
+
+    if "user_id" not in session or session["role"] != "staff":
+        return redirect("/login")
+
+    trek = Trek.query.get_or_404(trek_id)
+
+    if trek.assigned_staff != session["user_id"]:
+        return "Unauthorized Access"
+
+    bookings = Booking.query.filter_by(
+        trek_id=trek.id
+    ).all()
+
+    return render_template(
+        "staff_participants.html",
+        trek=trek,
+        bookings=bookings
+    )
+
+@app.route("/update_booking_status/<int:booking_id>/<status>")
+def update_booking_status(booking_id, status):
+
+    if "user_id" not in session or session["role"] != "staff":
+        return redirect("/login")
+
+    booking = Booking.query.get_or_404(booking_id)
+
+    trek = Trek.query.get(booking.trek_id)
+
+    if trek.assigned_staff != session["user_id"]:
+        return "Unauthorized Access"
+
+    booking.booking_status = status
+
+    db.session.commit()
+
+    return redirect(f"/staff_participants/{trek.id}")
+
 @app.route("/trekker")
 def trekker():
 
