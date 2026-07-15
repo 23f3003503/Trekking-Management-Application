@@ -317,6 +317,42 @@ def my_bookings():
         bookings=bookings
     )
 
+@app.route("/edit_profile", methods=["GET", "POST"])
+def edit_profile():
+
+    if "user_id" not in session or session["role"] != "trekker":
+        return redirect("/login")
+
+    user = User.query.get_or_404(session["user_id"])
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+
+        existing_user = User.query.filter(
+            User.username == username,
+            User.id != user.id
+        ).first()
+
+        if existing_user:
+            return "Username already exists."
+
+        user.name = request.form["name"]
+        user.username = username
+        user.password = request.form["password"]
+
+        session["username"] = user.username
+
+        db.session.commit()
+
+        return redirect("/trekker")
+
+    return render_template(
+        "edit_profile.html",
+        user=user
+    )
+
+
 @app.route("/view_bookings")
 def view_bookings():
 
@@ -457,16 +493,19 @@ def view_users():
 
     search = request.args.get("search", "")
 
-    users = User.query.filter(
-        User.role == "trekker",
-        User.name.ilike(f"%{search}%")
-    ).all()
+    users = User.query.filter(User.role == "trekker")
+
+    if search:
+        users = users.filter(User.name.ilike(f"%{search}%"))
+
+    users = users.all()
 
     return render_template(
         "view_users.html",
         users=users,
         search=search
     )
+
 
 @app.route("/toggle_user/<int:id>")
 def toggle_user(id):
