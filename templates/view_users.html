@@ -1,94 +1,126 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>View Users</title>
-</head>
+{% block title %}View Users{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Users</h1>
+<h2 class="mb-4">Trekker Management</h2>
 
-<form method="GET">
+<form method="GET" class="row g-3 mb-4">
 
-    <input
-        type="text"
-        name="search"
-        placeholder="Search User"
-        value="{{ search }}"
-    >
+    <div class="col-md-4">
 
-    <button type="submit">Search</button>
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search User"
+            value="{{ search }}">
+
+    </div>
+
+    <div class="col-auto">
+
+        <button
+            type="submit"
+            class="btn btn-info text-white">
+
+            Search
+
+        </button>
+
+    </div>
 
 </form>
 
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-info">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for user in users %}
+
+                <tr>
+
+                    <td>{{ user.id }}</td>
+
+                    <td>{{ user.name }}</td>
+
+                    <td>{{ user.username }}</td>
+
+                    <td>
+
+                        {% if user.is_active %}
+
+                            <span class="badge bg-success">
+                                Active
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Inactive
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="/toggle_user/{{ user.id }}"
+                            class="btn btn-warning btn-sm">
+
+                            {% if user.is_active %}
+                                Deactivate
+                            {% else %}
+                                Activate
+                            {% endif %}
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
 <br>
 
-<table border="1" cellpadding="8">
+<a href="/admin" class="btn btn-secondary">
 
-<tr>
+    Back to Dashboard
 
-    <th>ID</th>
-    <th>Name</th>
-    <th>Username</th>
-    <th>Status</th>
-    <th>Action</th>
-
-</tr>
-
-{% for user in users %}
-
-<tr>
-
-    <td>{{ user.id }}</td>
-
-    <td>{{ user.name }}</td>
-
-    <td>{{ user.username }}</td>
-
-    <td>
-
-        {% if user.is_active %}
-
-            Active
-
-        {% else %}
-
-            Inactive
-
-        {% endif %}
-
-    </td>
-
-    <td>
-
-        <a href="/toggle_user/{{ user.id }}">
-
-            {% if user.is_active %}
-
-                <button>Deactivate</button>
-
-            {% else %}
-
-                <button>Activate</button>
-
-            {% endif %}
-
-        </a>
-
-    </td>
-
-</tr>
-
-{% endfor %}
-
-</table>
-
-<br>
-
-<a href="/admin">
-    <button>Back to Dashboard</button>
 </a>
 
-</body>
-</html>
+{% endblock %}

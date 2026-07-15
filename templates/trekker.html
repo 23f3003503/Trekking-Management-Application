@@ -1,44 +1,101 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Trekker Dashboard</title>
-</head>
+{% block title %}Trekker Dashboard{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Trekker Dashboard</h1>
+<h1 class="mb-3">Trekker Dashboard</h1>
 
-<h2>Welcome {{ session["username"] }}</h2>
+<div class="alert alert-success">
 
-<hr>
+    <strong>Welcome {{ session["username"] }}</strong>
 
-<h2>Treks</h2>
+</div>
 
-<a href="/treks">
-    <button>View Available Treks</button>
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header bg-success text-white">
+
+                Available Treks
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <p>
+                    View all available trekking trips and make your bookings.
+                </p>
+
+                <a href="/treks" class="btn btn-success">
+                    View Treks
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header bg-primary text-white">
+
+                My Bookings
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <p>
+                    View all your current and previous trek bookings.
+                </p>
+
+                <a href="/my_bookings" class="btn btn-primary">
+                    My Bookings
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header bg-warning">
+
+                Profile
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <p>
+                    Update your personal information and account details.
+                </p>
+
+                <a href="/edit_profile" class="btn btn-warning">
+                    Edit Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<a href="/logout" class="btn btn-danger">
+    Logout
 </a>
 
-<h2>My Bookings</h2>
-
-<a href="/my_bookings">
-    <button>View My Bookings</button>
-</a>
-
-<hr>
-
-<h2>Profile</h2>
-
-<a href="/edit_profile">
-    <button>Edit Profile</button>
-</a>
-
-<br><br>
-
-<a href="/logout">
-    <button>Logout</button>
-</a>
-
-</body>
-
-</html>
+{% endblock %}

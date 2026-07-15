@@ -1,76 +1,191 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Admin Dashboard</title>
-</head>
+{% block title %}Admin Dashboard{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Admin Dashboard</h1>
+<h1 class="mb-4">Admin Dashboard</h1>
 
-    <hr>
+<h4 class="mb-3">Dashboard Statistics</h4>
 
-    <h2>Dashboard Statistics</h2>
+<div class="row mb-5">
 
-    <p><b>Total Treks:</b> {{ total_treks }}</p>
+    <div class="col-md-3 mb-3">
 
-    <p><b>Total Trekkers:</b> {{ total_users }}</p>
+        <div class="card text-center border-success shadow-sm">
 
-    <p><b>Total Staff:</b> {{ total_staff }}</p>
+            <div class="card-body">
 
-    <p><b>Total Bookings:</b> {{ total_bookings }}</p>
+                <h5 class="card-title">Total Treks</h5>
 
-    <hr>
+                <h2>{{ total_treks }}</h2>
 
-    <h3>Welcome Administrator</h3>
+            </div>
 
-    <hr>
+        </div>
 
-    <h2>Trek Management</h2>
+    </div>
 
-    <a href="/add_trek">
-        <button>Add Trek</button>
-    </a>
+    <div class="col-md-3 mb-3">
 
-    <a href="/view_treks">
-        <button>View Treks</button>
-    </a>
+        <div class="card text-center border-primary shadow-sm">
 
-    <br><br>
+            <div class="card-body">
 
-    <h2>Staff Management</h2>
+                <h5 class="card-title">Trekkers</h5>
 
-    <a href="/add_staff">
-        <button>Add Staff</button>
-    </a>
+                <h2>{{ total_users }}</h2>
 
-    <a href="/view_staff">
-        <button>View Staff</button>
-    </a>
+            </div>
 
-    <br><br>
+        </div>
 
-    <h2>Booking Management</h2>
+    </div>
 
-    <a href="/view_bookings">
-        <button>View Bookings</button>
-    </a>
+    <div class="col-md-3 mb-3">
 
-    <br><br>
+        <div class="card text-center border-warning shadow-sm">
 
-    <h2>User Management</h2>
+            <div class="card-body">
 
-    <a href="/view_users">
-        <button>View Users</button>
-    </a>
+                <h5 class="card-title">Staff</h5>
 
-    <br><br>
+                <h2>{{ total_staff }}</h2>
 
-    <a href="/logout">
-        <button>Logout</button>
-    </a>
+            </div>
 
-</body>
+        </div>
 
-</html>
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card text-center border-danger shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="card-title">Bookings</h5>
+
+                <h2>{{ total_bookings }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="alert alert-success">
+
+    <strong>Welcome Administrator!</strong>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-success text-white">
+
+                Trek Management
+
+            </div>
+
+            <div class="card-body">
+
+                <a href="/add_trek" class="btn btn-success me-2 mb-2">
+                    Add Trek
+                </a>
+
+                <a href="/view_treks" class="btn btn-outline-success mb-2">
+                    View Treks
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-primary text-white">
+
+                Staff Management
+
+            </div>
+
+            <div class="card-body">
+
+                <a href="/add_staff" class="btn btn-primary me-2 mb-2">
+                    Add Staff
+                </a>
+
+                <a href="/view_staff" class="btn btn-outline-primary mb-2">
+                    View Staff
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-warning">
+
+                Booking Management
+
+            </div>
+
+            <div class="card-body">
+
+                <a href="/view_bookings" class="btn btn-warning">
+                    View Bookings
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-info text-white">
+
+                User Management
+
+            </div>
+
+            <div class="card-body">
+
+                <a href="/view_users" class="btn btn-info text-white">
+                    View Users
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<a href="/logout" class="btn btn-danger">
+    Logout
+</a>
+
+{% endblock %}

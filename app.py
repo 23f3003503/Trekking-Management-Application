@@ -250,7 +250,8 @@ def view_treks():
 
     return render_template(
         "view_treks.html",
-        treks=treks
+        treks=treks,
+        search=search
     )
 
 @app.route("/treks")

@@ -1,67 +1,115 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Available Treks</title>
-</head>
+{% block title %}Available Treks{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Available Treks</h1>
+<h2 class="mb-4">Available Treks</h2>
 
-<table border="1" cellpadding="8">
+<div class="card shadow-sm">
 
-<tr>
-    <th>Trek Name</th>
-    <th>Location</th>
-    <th>Difficulty</th>
-    <th>Duration</th>
-    <th>Available Slots</th>
-    <th>Action</th>
-</tr>
+    <div class="card-body">
 
-{% for trek in treks %}
+        <div class="table-responsive">
 
-<tr>
+            <table class="table table-bordered table-hover align-middle">
 
-<td>{{ trek.trek_name }}</td>
+                <thead class="table-success">
 
-<td>{{ trek.location }}</td>
+                    <tr>
 
-<td>{{ trek.difficulty }}</td>
+                        <th>Trek Name</th>
+                        <th>Location</th>
+                        <th>Difficulty</th>
+                        <th>Duration</th>
+                        <th>Available Slots</th>
+                        <th>Status</th>
+                        <th>Action</th>
 
-<td>{{ trek.duration }}</td>
+                    </tr>
 
-<td>{{ trek.available_slots }}</td>
+                </thead>
 
-<td>
+                <tbody>
 
-{% if trek.status == "Open" %}
+                {% for trek in treks %}
 
-    <a href="/book_trek/{{ trek.id }}">
-        <button>Book</button>
-    </a>
+                <tr>
 
-{% else %}
+                    <td>{{ trek.trek_name }}</td>
 
-    Closed
+                    <td>{{ trek.location }}</td>
 
-{% endif %}
+                    <td>{{ trek.difficulty }}</td>
 
-</td>
+                    <td>{{ trek.duration }}</td>
 
-</tr>
+                    <td>{{ trek.available_slots }}</td>
 
-{% endfor %}
+                    <td>
 
-</table>
+                        {% if trek.status == "Open" %}
+
+                            <span class="badge bg-success">
+                                Open
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Closed
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if trek.status == "Open" %}
+
+                            <a
+                                href="/book_trek/{{ trek.id }}"
+                                class="btn btn-success btn-sm">
+
+                                Book
+
+                            </a>
+
+                        {% else %}
+
+                            <button
+                                class="btn btn-secondary btn-sm"
+                                disabled>
+
+                                Closed
+
+                            </button>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 <br>
 
-<a href="/login">
-    <button>Back</button>
+<a href="/trekker" class="btn btn-secondary">
+
+    Back to Dashboard
+
 </a>
 
-</body>
-
-</html>
+{% endblock %}

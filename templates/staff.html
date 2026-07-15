@@ -1,78 +1,123 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Staff Dashboard</title>
-</head>
+{% block title %}Staff Dashboard{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Staff Dashboard</h1>
+<h1 class="mb-3">Staff Dashboard</h1>
 
-<h2>Welcome {{ session["username"] }}</h2>
+<div class="alert alert-primary">
 
-<hr>
+    <strong>Welcome {{ session["username"] }}</strong>
 
-<h2>Assigned Treks</h2>
+</div>
 
-<table border="1" cellpadding="8">
+<div class="card shadow-sm">
 
-<tr>
-    <th>ID</th>
-    <th>Trek Name</th>
-    <th>Location</th>
-    <th>Difficulty</th>
-    <th>Duration</th>
-    <th>Available Slots</th>
-    <th>Status</th>
-    <th>Participants</th>
-    <th>Action</th>
-</tr>
+    <div class="card-header bg-primary text-white">
 
-{% for trek in assigned_treks %}
+        <h4 class="mb-0">Assigned Treks</h4>
 
-<tr>
+    </div>
 
-    <td>{{ trek.id }}</td>
+    <div class="card-body">
 
-    <td>{{ trek.trek_name }}</td>
+        <div class="table-responsive">
 
-    <td>{{ trek.location }}</td>
+            <table class="table table-bordered table-hover align-middle">
 
-    <td>{{ trek.difficulty }}</td>
+                <thead class="table-light">
 
-    <td>{{ trek.duration }}</td>
+                    <tr>
+                        <th>ID</th>
+                        <th>Trek Name</th>
+                        <th>Location</th>
+                        <th>Difficulty</th>
+                        <th>Duration</th>
+                        <th>Available Slots</th>
+                        <th>Status</th>
+                        <th>Participants</th>
+                        <th>Action</th>
+                    </tr>
 
-    <td>{{ trek.available_slots }}</td>
+                </thead>
 
-    <td>{{ trek.status }}</td>
+                <tbody>
 
-    <td>{{ trek.bookings|length }}</td>
+                {% for trek in assigned_treks %}
 
-    <td>
+                <tr>
 
-        <a href="/staff_edit_trek/{{ trek.id }}">
-            <button>Edit</button>
-        </a>
+                    <td>{{ trek.id }}</td>
 
-        <a href="/staff_participants/{{ trek.id }}">
-            <button>Participants</button>
-        </a>
+                    <td>{{ trek.trek_name }}</td>
 
-    </td>
+                    <td>{{ trek.location }}</td>
 
-</tr>
+                    <td>{{ trek.difficulty }}</td>
 
-{% endfor %}
+                    <td>{{ trek.duration }}</td>
 
-</table>
+                    <td>{{ trek.available_slots }}</td>
 
-<br><br>
+                    <td>
 
-<a href="/logout">
-    <button>Logout</button>
+                        {% if trek.status == "Open" %}
+
+                            <span class="badge bg-success">
+                                {{ trek.status }}
+                            </span>
+
+                        {% elif trek.status == "Closed" %}
+
+                            <span class="badge bg-danger">
+                                {{ trek.status }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+                                {{ trek.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ trek.bookings|length }}</td>
+
+                    <td>
+
+                        <a href="/staff_edit_trek/{{ trek.id }}"
+                           class="btn btn-primary btn-sm">
+                            Edit
+                        </a>
+
+                        <a href="/staff_participants/{{ trek.id }}"
+                           class="btn btn-success btn-sm">
+                            Participants
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+
+<a href="/logout" class="btn btn-danger">
+    Logout
 </a>
 
-</body>
-
-</html>
+{% endblock %}

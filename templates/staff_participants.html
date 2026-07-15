@@ -1,71 +1,138 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Trek Participants</title>
-</head>
+{% block title %}Trek Participants{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Participants - {{ trek.trek_name }}</h1>
+<h2 class="mb-4">
 
-<table border="1" cellpadding="8">
+    Participants - {{ trek.trek_name }}
 
-<tr>
-    <th>Booking ID</th>
-    <th>Trekker Name</th>
-    <th>Username</th>
-    <th>Booking Status</th>
-    <th>Payment Status</th>
-    <th>Action</th>
-</tr>
+</h2>
 
-{% for booking in bookings %}
+<div class="card shadow-sm">
 
-<tr>
+    <div class="card-body">
 
-    <td>{{ booking.id }}</td>
+        <div class="table-responsive">
 
-    <td>{{ booking.user.name }}</td>
+            <table class="table table-bordered table-hover align-middle">
 
-    <td>{{ booking.user.username }}</td>
+                <thead class="table-primary">
 
-    <td>{{ booking.booking_status }}</td>
+                    <tr>
 
-    <td>{{ booking.payment_status }}</td>
+                        <th>Booking ID</th>
+                        <th>Trekker Name</th>
+                        <th>Username</th>
+                        <th>Booking Status</th>
+                        <th>Payment Status</th>
+                        <th>Action</th>
 
-    <td>
+                    </tr>
 
-        {% if booking.booking_status != "Completed" %}
+                </thead>
 
-        <a href="/update_booking_status/{{ booking.id }}/Completed">
-            <button>Complete</button>
-        </a>
+                <tbody>
 
-        {% endif %}
+                {% for booking in bookings %}
 
-        {% if booking.booking_status != "Cancelled" %}
+                <tr>
 
-        <a href="/update_booking_status/{{ booking.id }}/Cancelled">
-            <button>Cancel</button>
-        </a>
+                    <td>{{ booking.id }}</td>
 
-        {% endif %}
+                    <td>{{ booking.user.name }}</td>
 
-    </td>
+                    <td>{{ booking.user.username }}</td>
 
-</tr>
+                    <td>
 
-{% endfor %}
+                        {% if booking.booking_status == "Booked" %}
 
-</table>
+                            <span class="badge bg-primary">
+                                Booked
+                            </span>
 
-<br><br>
+                        {% elif booking.booking_status == "Completed" %}
 
-<a href="/staff">
-    <button>Back</button>
+                            <span class="badge bg-success">
+                                Completed
+                            </span>
+
+                        {% elif booking.booking_status == "Cancelled" %}
+
+                            <span class="badge bg-danger">
+                                Cancelled
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+                                {{ booking.booking_status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-warning text-dark">
+
+                            {{ booking.payment_status }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        {% if booking.booking_status != "Completed" %}
+
+                        <a
+                            href="/update_booking_status/{{ booking.id }}/Completed"
+                            class="btn btn-success btn-sm">
+
+                            Complete
+
+                        </a>
+
+                        {% endif %}
+
+                        {% if booking.booking_status != "Cancelled" %}
+
+                        <a
+                            href="/update_booking_status/{{ booking.id }}/Cancelled"
+                            class="btn btn-danger btn-sm">
+
+                            Cancel
+
+                        </a>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+
+<a href="/staff" class="btn btn-secondary">
+
+    Back
+
 </a>
 
-</body>
-
-</html>
+{% endblock %}

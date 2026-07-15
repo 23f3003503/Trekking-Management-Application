@@ -1,55 +1,94 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Edit Profile</title>
-</head>
+{% block title %}Edit Profile{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Edit Profile</h1>
+<div class="row justify-content-center">
 
-<form method="POST">
+    <div class="col-md-6">
 
-    <label>Name</label><br>
-    <input
-        type="text"
-        name="name"
-        value="{{ user.name }}"
-        required>
+        <div class="card shadow-sm">
 
-    <br><br>
+            <div class="card-header bg-success text-white">
 
-    <label>Username</label><br>
-    <input
-        type="text"
-        name="username"
-        value="{{ user.username }}"
-        required>
+                <h3 class="mb-0">Edit Profile</h3>
 
-    <br><br>
+            </div>
 
-    <label>Password</label><br>
-    <input
-        type="password"
-        name="password"
-        value="{{ user.password }}"
-        required>
+            <div class="card-body">
 
-    <br><br>
+                <form method="POST">
 
-    <button type="submit">
-        Update Profile
-    </button>
+                    <div class="mb-3">
 
-</form>
+                        <label class="form-label">
+                            Name
+                        </label>
 
-<br>
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            value="{{ user.name }}"
+                            required>
 
-<a href="/trekker">
-    <button>Cancel</button>
-</a>
+                    </div>
 
-</body>
+                    <div class="mb-3">
 
-</html>
+                        <label class="form-label">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            value="{{ user.username }}"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            value="{{ user.password }}"
+                            required>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success">
+
+                        Update Profile
+
+                    </button>
+
+                    <a
+                        href="/trekker"
+                        class="btn btn-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

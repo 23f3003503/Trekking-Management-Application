@@ -1,46 +1,136 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Edit Staff</title>
-</head>
+{% block title %}Edit Staff{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Edit Staff</h1>
+<div class="row justify-content-center">
 
-<form method="POST">
+    <div class="col-md-8">
 
-<label>Name</label><br>
-<input type="text" name="name" value="{{ staff.user.name }}"><br><br>
+        <div class="card shadow-sm">
 
-<label>Username</label><br>
-<input type="text" name="username" value="{{ staff.user.username }}"><br><br>
+            <div class="card-header bg-primary text-white">
 
-<label>Password</label><br>
-<input type="text" name="password" value="{{ staff.user.password }}"><br><br>
+                <h3 class="mb-0">Edit Staff</h3>
 
-<label>Phone</label><br>
-<input type="text" name="phone" value="{{ staff.phone }}"><br><br>
+            </div>
 
-<label>Experience</label><br>
-<input type="number" name="experience" value="{{ staff.experience }}"><br><br>
+            <div class="card-body">
 
-<label>Specialization</label><br>
-<input type="text" name="specialization" value="{{ staff.specialization }}"><br><br>
+                <form method="POST">
 
-<button type="submit">
-Update Staff
-</button>
+                    <div class="mb-3">
 
-</form>
+                        <label class="form-label">
+                            Name
+                        </label>
 
-<br>
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            value="{{ staff.user.name }}"
+                            required>
 
-<a href="/view_staff">
-<button>Cancel</button>
-</a>
+                    </div>
 
-</body>
+                    <div class="mb-3">
 
-</html>
+                        <label class="form-label">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            value="{{ staff.user.username }}"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            value="{{ staff.user.password }}"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            class="form-control"
+                            value="{{ staff.phone }}">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Experience
+                        </label>
+
+                        <input
+                            type="number"
+                            name="experience"
+                            class="form-control"
+                            value="{{ staff.experience }}">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Specialization
+                        </label>
+
+                        <input
+                            type="text"
+                            name="specialization"
+                            class="form-control"
+                            value="{{ staff.specialization }}">
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Update Staff
+
+                    </button>
+
+                    <a
+                        href="/view_staff"
+                        class="btn btn-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

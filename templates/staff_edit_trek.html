@@ -1,70 +1,103 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Edit Assigned Trek</title>
-</head>
+{% block title %}Edit Assigned Trek{% endblock %}
 
-<body>
+{% block content %}
 
-<h1>Edit Assigned Trek</h1>
+<div class="row justify-content-center">
 
-<form method="POST">
+    <div class="col-md-6">
 
-    <label>Available Slots</label><br>
-    <input
-        type="number"
-        name="available_slots"
-        value="{{ trek.available_slots }}"
-        required>
+        <div class="card shadow-sm">
 
-    <br><br>
+            <div class="card-header bg-primary text-white">
 
-    <label>Status</label><br>
+                <h3 class="mb-0">Edit Assigned Trek</h3>
 
-    <select name="status">
+            </div>
 
-        <option value="Open"
-        {% if trek.status=="Open" %}selected{% endif %}>
-        Open
-        </option>
+            <div class="card-body">
 
-        <option value="Closed"
-        {% if trek.status=="Closed" %}selected{% endif %}>
-        Closed
-        </option>
+                <form method="POST">
 
-        <option value="Started"
-        {% if trek.status=="Started" %}selected{% endif %}>
-        Started
-        </option>
+                    <div class="mb-3">
 
-        <option value="Ongoing"
-        {% if trek.status=="Ongoing" %}selected{% endif %}>
-        Ongoing
-        </option>
+                        <label class="form-label">
+                            Available Slots
+                        </label>
 
-        <option value="Completed"
-        {% if trek.status=="Completed" %}selected{% endif %}>
-        Completed
-        </option>
+                        <input
+                            type="number"
+                            name="available_slots"
+                            class="form-control"
+                            value="{{ trek.available_slots }}"
+                            required>
 
-    </select>
+                    </div>
 
-    <br><br>
+                    <div class="mb-3">
 
-    <button type="submit">
-        Update Trek
-    </button>
+                        <label class="form-label">
+                            Status
+                        </label>
 
-</form>
+                        <select
+                            name="status"
+                            class="form-select">
 
-<br>
+                            <option value="Open"
+                            {% if trek.status=="Open" %}selected{% endif %}>
+                                Open
+                            </option>
 
-<a href="/staff">
-    <button>Back</button>
-</a>
+                            <option value="Closed"
+                            {% if trek.status=="Closed" %}selected{% endif %}>
+                                Closed
+                            </option>
 
-</body>
+                            <option value="Started"
+                            {% if trek.status=="Started" %}selected{% endif %}>
+                                Started
+                            </option>
 
-</html>
+                            <option value="Ongoing"
+                            {% if trek.status=="Ongoing" %}selected{% endif %}>
+                                Ongoing
+                            </option>
+
+                            <option value="Completed"
+                            {% if trek.status=="Completed" %}selected{% endif %}>
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Update Trek
+
+                    </button>
+
+                    <a
+                        href="/staff"
+                        class="btn btn-secondary ms-2">
+
+                        Back
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

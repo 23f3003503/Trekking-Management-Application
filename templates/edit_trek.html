@@ -1,87 +1,181 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Trek</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Edit Trek{% endblock %}
 
-<h1>Edit Trek</h1>
+{% block content %}
 
-<form method="POST">
+<div class="row justify-content-center">
 
-    <label>Trek Name</label><br>
-    <input type="text" name="trek_name" value="{{ trek.trek_name }}" required><br><br>
+    <div class="col-md-8">
 
-    <label>Location</label><br>
-    <input type="text" name="location" value="{{ trek.location }}" required><br><br>
+        <div class="card shadow-sm">
 
-    <label>Difficulty</label><br>
+            <div class="card-header bg-primary text-white">
 
-    <select name="difficulty">
+                <h3 class="mb-0">Edit Trek</h3>
 
-        <option value="Easy"
-        {% if trek.difficulty=="Easy" %}selected{% endif %}>
-        Easy
-        </option>
+            </div>
 
-        <option value="Moderate"
-        {% if trek.difficulty=="Moderate" %}selected{% endif %}>
-        Moderate
-        </option>
+            <div class="card-body">
 
-        <option value="Hard"
-        {% if trek.difficulty=="Hard" %}selected{% endif %}>
-        Hard
-        </option>
+                <form method="POST">
 
-    </select>
+                    <div class="mb-3">
 
-    <br><br>
+                        <label class="form-label">
+                            Trek Name
+                        </label>
 
-    <label>Duration</label><br>
-    <input type="text" name="duration" value="{{ trek.duration }}" required><br><br>
+                        <input
+                            type="text"
+                            name="trek_name"
+                            class="form-control"
+                            value="{{ trek.trek_name }}"
+                            required>
 
-    <label>Available Slots</label><br>
-    <input type="number" name="available_slots"
-           value="{{ trek.available_slots }}" required><br><br>
+                    </div>
 
-    <label>Assign Staff</label><br>
+                    <div class="mb-3">
 
-    <select name="assigned_staff">
+                        <label class="form-label">
+                            Location
+                        </label>
 
-        <option value="">-- Select Staff --</option>
+                        <input
+                            type="text"
+                            name="location"
+                            class="form-control"
+                            value="{{ trek.location }}"
+                            required>
 
-        {% for staff in staff_members %}
+                    </div>
 
-        <option value="{{ staff.id }}"
-        {% if trek.assigned_staff == staff.id %}selected{% endif %}>
+                    <div class="mb-3">
 
-            {{ staff.name }}
+                        <label class="form-label">
+                            Difficulty
+                        </label>
 
-        </option>
+                        <select
+                            name="difficulty"
+                            class="form-select">
 
-        {% endfor %}
+                            <option value="Easy"
+                            {% if trek.difficulty=="Easy" %}selected{% endif %}>
+                                Easy
+                            </option>
 
-    </select>
+                            <option value="Moderate"
+                            {% if trek.difficulty=="Moderate" %}selected{% endif %}>
+                                Moderate
+                            </option>
 
-    <br><br>
+                            <option value="Hard"
+                            {% if trek.difficulty=="Hard" %}selected{% endif %}>
+                                Hard
+                            </option>
 
-    <label>Description</label><br>
+                        </select>
 
-    <textarea name="description" rows="5" cols="40">{{ trek.description }}</textarea>
+                    </div>
 
-    <br><br>
+                    <div class="mb-3">
 
-    <button type="submit">Update Trek</button>
+                        <label class="form-label">
+                            Duration
+                        </label>
 
-</form>
+                        <input
+                            type="text"
+                            name="duration"
+                            class="form-control"
+                            value="{{ trek.duration }}"
+                            required>
 
-<br>
+                    </div>
 
-<a href="/view_treks">
-    <button>Cancel</button>
-</a>
+                    <div class="mb-3">
 
-</body>
-</html>
+                        <label class="form-label">
+                            Available Slots
+                        </label>
+
+                        <input
+                            type="number"
+                            name="available_slots"
+                            class="form-control"
+                            value="{{ trek.available_slots }}"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Assign Staff
+                        </label>
+
+                        <select
+                            name="assigned_staff"
+                            class="form-select">
+
+                            <option value="">
+                                -- Select Staff --
+                            </option>
+
+                            {% for staff in staff_members %}
+
+                            <option
+                                value="{{ staff.id }}"
+                                {% if trek.assigned_staff == staff.id %}selected{% endif %}>
+
+                                {{ staff.name }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            rows="5"
+                            class="form-control">{{ trek.description }}</textarea>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Update Trek
+
+                    </button>
+
+                    <a
+                        href="/view_treks"
+                        class="btn btn-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

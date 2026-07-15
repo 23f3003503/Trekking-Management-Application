@@ -1,43 +1,130 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Add Staff</title>
-</head>
+{% block title %}Add Staff{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Add Staff</h1>
+<div class="row justify-content-center">
 
-    <form method="POST">
+    <div class="col-md-8">
 
-        <label>Name</label><br>
-        <input type="text" name="name" required><br><br>
+        <div class="card shadow-sm">
 
-        <label>Username</label><br>
-        <input type="text" name="username" required><br><br>
+            <div class="card-header bg-primary text-white">
 
-        <label>Password</label><br>
-        <input type="password" name="password" required><br><br>
+                <h3 class="mb-0">Add Staff Member</h3>
 
-        <label>Phone</label><br>
-        <input type="text" name="phone"><br><br>
+            </div>
 
-        <label>Experience (Years)</label><br>
-        <input type="number" name="experience"><br><br>
+            <div class="card-body">
 
-        <label>Specialization</label><br>
-        <input type="text" name="specialization"><br><br>
+                <form method="POST">
 
-        <button type="submit">Add Staff</button>
+                    <div class="mb-3">
 
-    </form>
+                        <label class="form-label">
+                            Name
+                        </label>
 
-    <br>
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            required>
 
-    <a href="/admin">
-        <button>Back</button>
-    </a>
+                    </div>
 
-</body>
-</html>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            class="form-control">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Experience (Years)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="experience"
+                            class="form-control">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Specialization
+                        </label>
+
+                        <input
+                            type="text"
+                            name="specialization"
+                            class="form-control">
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Add Staff
+
+                    </button>
+
+                    <a
+                        href="/admin"
+                        class="btn btn-secondary ms-2">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

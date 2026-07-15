@@ -1,24 +1,35 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Trekking Management</title>
-</head>
+{% block title %}Home{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Welcome to Trekking Management Application</h1>
+<div class="text-center mt-5">
 
-    <p>Developed for IIT Madras MAD-1.</p>
+    <h1 class="display-4 fw-bold">
+        Trekking Management System
+    </h1>
 
-    <a href="/login">
-         <button>Login</button>
-    </a>
+    <p class="lead">
+        Welcome to the Trekking Management Application
+    </p>
 
-    <a href="/register">
-        <button>Register</button>
-    </a>
+    <p class="text-muted">
+        Developed for IIT Madras MAD-1.
+    </p>
 
-</body>
+    <div class="mt-4">
 
-</html>
+        <a href="/login" class="btn btn-success btn-lg me-2">
+            Login
+        </a>
+
+        <a href="/register" class="btn btn-outline-success btn-lg">
+            Register
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
